@@ -16,18 +16,17 @@ public class WebScraper {
 		String u="";
 		String nomeFile="";
 		boolean append=true;
-		//long startTime = 0L;
 		String risposta="";
 		StringBuilder str = new StringBuilder();
-		List<String> listalink = new ArrayList<String>();  // All restaurant links
-		List<String> allRestaurantinfo = new ArrayList<String>(); // All Restaurant info
+		List<String> listalink = new ArrayList<String>();  // All restaurant links list
+		List<String> allRestaurantinfo = new ArrayList<String>(); // All Restaurant info list
 		ListParser listparser = new ListParser();
 		
 		System.out.println("Inserisci URL contenente la prima pagina della lista dei ristoranti presenti nella località d'interesse");
 		System.out.println("L'URL dovrà essere nel formato: \"https://www.tripadvisor.it/Restaurants-g12345678-abc_defg.html\"");
 		System.out.print("URL: ");
 		u = new Scanner(System.in).nextLine();
-		if (!ScraperUtil.checkUrl(u)) {
+		if (!ScraperUtil.checkUrl(u)) { // check url
 			System.out.println("URL non corretto! Programma terminato.");
 			System.exit(0);
 		}
@@ -44,7 +43,6 @@ public class WebScraper {
 		nomeFile=new Scanner(System.in).nextLine()+".csv";
 		
 		System.out.println("Sto estrapolando la lista dei link di tutti le attivita presenti nella zona. Attendere...");
-		//startTime = System.currentTimeMillis();
 		
 		listparser.getAllLinks(u, listalink);
 		
@@ -52,7 +50,7 @@ public class WebScraper {
 		
 		ForkJoinPool pool = new ForkJoinPool();
 		
-		for (String link : listalink) {
+		for (String link : listalink) {		//start new scrape thread for every activity URL contained in the list
 			allRestaurantinfo.add(pool.invoke(new Parser(link)));
 		}
 		pool.shutdown();
@@ -67,8 +65,8 @@ public class WebScraper {
 		
 		}
 		
-		ScraperUtil.writeToFile(str.toString(), nomeFile, append); //Scrivo i dati raccolti di tutti i locali su file
-		System.out.println("Dati scritti correttamente. " /**+ "Tempo impiegato: "+ (((System.currentTimeMillis()-startTime)/1000)/60)+" "+"minuti"+ " "+"e"+" "+(((System.currentTimeMillis()-startTime)/1000)%60)+" "+"Secondi"*/);
+		ScraperUtil.writeToFile(str.toString(), nomeFile, append); //Write to file
+		System.out.println("Dati scritti correttamente! ");
 		System.out.println("Esecuzione programma terminata!");
 		
 	}
