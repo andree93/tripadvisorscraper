@@ -82,7 +82,7 @@ public class ListParser {
 		}
 	}
 	
-	public static int contaPagineLista(String url) {
+	public static int contaPagineLista(String url) {	//count Tripadvisor search pages, starting from the first page URL passed as argument
 		int pagine = 1;
 		String u = url;
 		Document doc=null;
@@ -101,7 +101,7 @@ public class ListParser {
 	}
 	
 	
-	public String[] linkBuilder(String firstPagesListUrl, int pagine) {
+	public String[] linkBuilder(String firstPagesListUrl, int pagine) {	//build a list containing all URL pages with activities, starting by first URL page passed as argument.
 		String[] elencolink = new String[pagine];
 		final int offset=47; //First URL part, till "-gXXXXXXX-"
 		final String prefix = "oa";
@@ -112,13 +112,13 @@ public class ListParser {
 		
 		for ( int i=0; i< elencolink.length; i++) {
 			String part1 = firstPagesListUrl.substring(0, offset);
-			String part2 = part1+prefix+(i*30)+"-"+ firstPagesListUrl.substring(offset);
+			String part2 = part1+prefix+(i*30)+"-"+ firstPagesListUrl.substring(offset); //every tripadvisor contain max 30 link's activities (restaurant, bar, etc)
 			elencolink[i]=part2;
 		}
 		return elencolink;
 	}
 
-	public void getAllLinks(String firstPage, List<String> linkRistorante) {
+	public void getAllLinks(String firstPage, List<String> linkRistorante) { //build and save to a list passed as argument, all activities found, starting from the first Tripadvisor search page
 		int pages = contaPagineLista(firstPage);
 		String[] elencolink = new String[pages];
 		elencolink = linkBuilder(firstPage, pages);
