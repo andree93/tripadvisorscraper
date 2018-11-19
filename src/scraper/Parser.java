@@ -134,18 +134,16 @@ public class Parser extends RecursiveTask<String> {
 			try {
 				url = new URL(this.url);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
 				this.doc = Jsoup.connect(url.toString()).userAgent(USER_AGENT).get();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Element info = doc.getElementsByClass(NOME_CLASSE_INFORMAZIONI).first();
 			Element titolo = doc.getElementsByClass(NOME_CLASSE_TITOLO).first();
-			this.setNomeLocale(titolo.select("#HEADING").text()); //Rimuovo intestazione tripadvisor dal titolo
+			this.setNomeLocale(titolo.select("#HEADING").text());
 			this.setNazione(info.select(".country-name").text());
 			this.setCitta(info.select(".locality").text().replaceAll(",", ""));
 			this.setIndirizzo((info.select(".street-address").text()).replaceAll(",",""));
@@ -167,7 +165,6 @@ public class Parser extends RecursiveTask<String> {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
