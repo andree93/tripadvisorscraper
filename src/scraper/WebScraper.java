@@ -23,8 +23,8 @@ public class WebScraper {
 		List<String> allRestaurantinfo = new ArrayList<String>(); // All Restaurant info
 		ListParser listparser = new ListParser();
 		
-		System.out.println("Inserisci URL contenente la prima pagina della lista dei ristoranti presenti nella localit‡ d'interesse");
-		System.out.println("L'URL dovr‡ essere nel formato: \"https://www.tripadvisor.it/Restaurants-g12345678-abc_defg.html");
+		System.out.println("Inserisci URL contenente la prima pagina della lista dei ristoranti presenti nella localit√† d'interesse");
+		System.out.println("L'URL dovr√† essere nel formato: \"https://www.tripadvisor.it/Restaurants-g12345678-abc_defg.html\"");
 		System.out.print("URL: ");
 		u = new Scanner(System.in).nextLine();
 		if (!ScraperUtil.checkUrl(u)) {
